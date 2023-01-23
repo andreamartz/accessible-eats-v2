@@ -1,27 +1,26 @@
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import axios from 'axios';
  
+import UserContext from './store/UserContext';
 import PrivateRoute from './routes-nav/PrivateRoute';
-import Navbar from './routes-nav/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Signup from '.pages/Signup';
 import BusinessDetails from './pages/BusinessDetails';
 import UserFeedback from './pages/UserFeedback';
  
 
+const App = () => {
+	const [currentUser, setCurrentUser] = useState(null);
 
 
-function App() {
+
   return (
-
-
-        <div className="App">
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <div className="container">
       <main>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='login' element={<Login />} />
-          <Route path='signup' element={<Signup />} />
           <Route path='business' element={<BusinessDetails />} />
           <Route 
             path='my-feedback' 
@@ -34,6 +33,7 @@ function App() {
         </Routes>
       </main>
         </div>
+    </UserContext.Provider >
   );
 }
 
